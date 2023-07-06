@@ -1,0 +1,15 @@
+Times:
+
+10 simulations: 0m0.033s (record time using 0m0.000s format)
+100 simulations: 0m0.030s (record time using 0m0.000s format)
+1000 simulations: 0m0.035s (record time using 0m0.000s format)
+10000 simulations: 0m0.108s (record time using 0m0.000s format)
+100000 simulations: 0m0.833s (record time using 0m0.000s format)
+1000000 simulations: 0m7.155s (record time using 0m0.000s format)
+
+Questions:
+
+Which predictions, if any, proved incorrect as you increased the number of simulations?: Mostly the top of the list. Teams with the lowest ratings scored consistently at the bottom, especially those close to 0%
+
+Suppose you're charged a fee for each second of compute time your program uses.
+After how many simulations would you call the predictions "good enough"?: The sweet spot seemed to be 10000 simulations. Percentages remained pretty accurate, without too much impact on timing.

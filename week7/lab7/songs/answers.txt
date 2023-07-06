@@ -1,0 +1,2 @@
+- This person seems to prefer songs with a energetic feeling, that can be danced, and that can be either cheery or self-reflective.
+- As we have access to more characteristics of a song, these could be implemented in the aura calculation to achieve a broader spectrum and understanding of each person's preference.

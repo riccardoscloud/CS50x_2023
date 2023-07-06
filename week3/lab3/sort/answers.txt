@@ -1,0 +1,11 @@
+sort1 uses: bubble sort
+
+How do you know?: sorting is dramatically more efficient on a sorted list, as opposed to much greater times when sorting random and reversed lists
+
+sort2 uses: merge sort
+
+How do you know?: sorting times are comparable in all cases of sorted,reversed and random lists; also, a much greater number of values impacts the sorting times only by a little
+
+sort3 uses: selection sort
+
+How do you know?: similarly to sort2, sorting times are comparable across all 3 kinds of list; a greater number of values in the list, however, strongly increases the sorting times
