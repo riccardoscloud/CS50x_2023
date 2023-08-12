@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <script>
+            // TODO: Add code to check answers to questions
+            function rightAnswer(button) {
+                document.getElementById(button).style.backgroundColor = "#66FF66";
+                document.getElementById('outcome1').innerHTML = "Correct!";
+            }
+
+            function wrongAnswer(button) {
+                document.getElementById(button).style.backgroundColor = "#FF6666";
+                document.getElementById('outcome1').innerHTML = "Incorrect";
+            }
+
+            function checkTrivia() {
+                var userInput = document.getElementById('answer5').value.toLowerCase();
+                if (userInput === "saturn") {
+                    document.getElementById('answer5').style.backgroundColor = "#66FF66";
+                    document.getElementById('outcome2').innerHTML = "Correct!";
+                }
+                else {
+                    document.getElementById('answer5').style.backgroundColor = "#FF6666";
+                    document.getElementById('outcome2').innerHTML = "Incorrect";
+                }
+            }
+
+        </script>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2>Part 1: Multiple Choice </h2>
+                <hr>
+                <!-- TODO: Add multiple choice question here -->
+                <h3>If you could drive a car vertically, at 60 mph, towards the Moon, how long would it take you to arrive at destination?</h3>
+                <h4 id="outcome1"></h4>
+                <table>
+                    <tr>
+                        <td>
+                            <button id="answer1" onclick="wrongAnswer('answer1')">About 2 days.</button>
+                        </td>
+                        <td>
+                            <button id="answer2" onclick="wrongAnswer('answer2')">About 3 weeks.</button>
+                        </td>
+                        <td>
+                            <button id="answer3" onclick="rightAnswer('answer3')">About 6 months.</button>
+                        </td>
+                        <td>
+                            <button id="answer4" onclick="wrongAnswer('answer4')">About 2 years.</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <!-- TODO: Add free response question here -->
+                <h3>Which planet, in our solar system, has the most moons?</h3> <!-- SATURN -->
+                <h4 id="outcome2"></h4>
+                <input autocomplete="off" autofocus id="answer5" type="text">
+                <button type="submit" id="triviaButton" onclick="checkTrivia()">Submit answer</button>
+            </div>
+        </div>
+    </body>
+</html>

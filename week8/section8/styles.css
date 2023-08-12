@@ -1,0 +1,28 @@
+table {
+    border: 2px solid black;
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+td {
+    border: 2px solid black;
+}
+
+#team1-button
+{
+    background-color: red;
+    border: 4pt dashed;
+}
+
+#team2-button
+{
+    background-color: blue;
+    border: 4pt dashed;
+}
+
+.title
+{
+    background-color: gray;
+}
