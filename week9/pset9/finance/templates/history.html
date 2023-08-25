@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<div class="header">
+    <h1>Transactions history</h1>
+</div>
+<div class="container">
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Buy/Sell</th>
+                    <th>Stock</th>
+                    <th>Price</th>
+                    <th>Shares</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in ledger %}
+                    <tr>
+                        {% if transaction['shares_quantity'] > 0 %}
+                            <td>Buy</td>
+                        {% else %}
+                            <td>Sell</td>
+                        {% endif %}
+                        <td>{{ transaction['stock'] }}</td>
+                        <td>{{ transaction['shares_price'] }}</td>
+                        <td>{{ transaction['shares_quantity'] }}</td>
+                        <td>{{ transaction['timestamp'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

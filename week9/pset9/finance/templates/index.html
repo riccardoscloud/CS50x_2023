@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+<div class="header">
+    <h1>Portfolio</h1>
+</div>
+<div class="container">
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Stock</th>
+                    <th>Shares</th>
+                    <th>Current share price</th>
+                    <th>Current total value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in portfolio.items() %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value['units'] }}</td>
+                        <td>{{ value['price'] }}</td>
+                        <td>{{ value['total_value'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="header">
+    <h1>Balance</h1>
+</div>
+<div class="container">
+    <div class="section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Cash</th>
+                    <th>Shares total value</th>
+                    <th>Grand total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ balance }}</td>
+                    <td>{{ portfolio_value }}</td>
+                    <td>{{ grand_total }}</td>
+                </tr>
+            </tbody>
+        </table>
+{% endblock %}
