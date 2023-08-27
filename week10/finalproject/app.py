@@ -1,6 +1,6 @@
 import os
-import sqlite3
 
+from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -17,9 +17,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = sqlite3.connect("database.db")
+db = SQL("sqlite:///database.db")
 
-db.execute("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL)")
 
 @app.after_request
 def after_request(response):
@@ -94,19 +93,19 @@ def register():
         # Ensure username was submitted
         if not request.form.get("username"):
             return apology("must provide username", 400)
+        
+        # Ensure password was submitted
+        if not request.form.get("password") or request.form.get("password") != request.form.get("confirmation"):
+            return apology("must provide two matching passwords", 400)
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        username = request.form.get("username")
+        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
 
         # Ensure username doesn't exist
         if len(rows) > 0:
             return apology("username already exists", 400)
 
-        # Ensure password was submitted
-        if not request.form.get("password") or request.form.get("password") != request.form.get("confirmation"):
-            return apology("must provide two matching passwords", 400)
-
-        username = request.form.get("username")
         hash = generate_password_hash(request.form.get("password"))
 
         db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, hash)
