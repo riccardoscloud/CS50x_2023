@@ -5,11 +5,10 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required
+from helpers import apology, login_required, password_check
 
 # Configure application
 app = Flask(__name__)
-
 
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
@@ -17,7 +16,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///database.db")
+db = SQL("sqlite:///finance.db")
 
 
 @app.after_request
@@ -93,19 +92,24 @@ def register():
         # Ensure username was submitted
         if not request.form.get("username"):
             return apology("must provide username", 400)
-        
-        # Ensure password was submitted
-        if not request.form.get("password") or request.form.get("password") != request.form.get("confirmation"):
-            return apology("must provide two matching passwords", 400)
 
         # Query database for username
-        username = request.form.get("username")
-        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
         # Ensure username doesn't exist
         if len(rows) > 0:
             return apology("username already exists", 400)
 
+        # Ensure password was submitted
+        if not request.form.get("password") or request.form.get("password") != request.form.get("confirmation"):
+            return apology("must provide two matching passwords", 400)
+        
+        # Ensure password is secure
+        check = password_check(request.form.get("password"))
+        if not check["password_ok"]:
+            return apology("password needs min 10 characters, 1 digit, 1 symbol, 1 lower and 1 uppercase letter", 400)
+
+        username = request.form.get("username")
         hash = generate_password_hash(request.form.get("password"))
 
         db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, hash)
@@ -116,4 +120,3 @@ def register():
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")
-
