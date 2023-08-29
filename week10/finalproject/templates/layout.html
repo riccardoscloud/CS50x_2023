@@ -12,11 +12,11 @@
         <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
 
         <!-- https://favicon.io/emoji-favicons/money-bag/ -->
-        <link href="/static/favicon.ico" rel="icon">
+        <link href="/static/rc_logo.png" rel="icon">
 
         <link href="/static/styles.css" rel="stylesheet">
 
-        <title>C$50 Finance: {% block title %}{% endblock %}</title>
+        <title>GPT's Cauldron - A CS50 Project: {% block title %}{% endblock %}</title>
 
     </head>
 
@@ -24,23 +24,24 @@
 
         <nav class="bg-light border navbar navbar-expand-md navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/"><span class="blue">C</span><span class="red">$</span><span class="yellow">5</span><span class="green">0</span> <span class="red">Finance</span></a>
+                <a class="navbar-brand" href="/"><span class="red">GPT's Cauldron</span></a>
                 <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar">
                     {% if session["user_id"] %}
                         <ul class="navbar-nav me-auto mt-2">
-                            <li class="nav-item"><a class="nav-link" href="/quote">Quote</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/topup">Top-up</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/generate_name">Generate a name</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/generate_backstory">Generate a backstory</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
                         </ul>
                         <ul class="navbar-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                         </ul>
                     {% else %}
+                    <ul class="navbar-nav me-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                    </ul>
                         <ul class="navbar-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
                             <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
@@ -63,7 +64,9 @@
         </main>
 
         <footer class="mb-5 small text-center text-muted">
-            Data provided by <a href="https://iexcloud.io/">IEX</a>
+            Harvard CS50X 2023 - Final Project
+            <br>
+            Created by Riccardo @ <a href="https://riccardoscloud.com/">Riccardo's Cloud</a>
         </footer>
 
     </body>

@@ -5,21 +5,9 @@ nav .navbar-brand
 }
 
 /* Colors for brand */
-nav .navbar-brand .blue
-{
-    color: #537fbe;
-}
 nav .navbar-brand .red
 {
-    color: #ea433b;
-}
-nav .navbar-brand .yellow
-{
-    color: #f5b82e;
-}
-nav .navbar-brand .green
-{
-    color: #2e944b;
+    color: #9f1009;
 }
 
 
@@ -56,7 +44,7 @@ body {
 }
 
 .header {
-    background-color: #477bff;
+    background-color: #9f1009;
     color: #fff;
     margin-bottom: 2rem;
     padding: 2rem 1rem;
