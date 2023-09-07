@@ -29,7 +29,7 @@ def after_request(response):
 
 
 @app.route("/")
-@login_required
+#@login_required
 def index():
     
     return render_template("/index.html")
@@ -115,7 +115,7 @@ def register():
         db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", username, hash)
 
         # Redirect user to home page
-        return redirect("/")
+        return redirect("/login")
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:

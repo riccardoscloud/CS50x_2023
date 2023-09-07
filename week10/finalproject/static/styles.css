@@ -2,12 +2,15 @@
 nav .navbar-brand
 {
     font-size: xx-large;
+    font-family: 'short_stackregular';
+    font-weight:bold;
+    font-style:normal;
 }
 
 /* Colors for brand */
-nav .navbar-brand .red
+nav .navbar-brand .green
 {
-    color: #9f1009;
+    color: #459f09;
 }
 
 
@@ -44,11 +47,14 @@ body {
 }
 
 .header {
-    background-color: #9f1009;
+    background-color: #459f09;
     color: #fff;
     margin-bottom: 2rem;
     padding: 2rem 1rem;
     text-align: center;
+    font-family: 'short_stackregular';
+    font-weight:normal;
+    font-style:normal;
 }
 
 .section {
@@ -61,4 +67,24 @@ body {
 .section:hover {
     background-color: #f5f5f5;
     transition: color 2s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+
+@font-face {
+    font-family: 'woodlandregular';
+    src: url('fonts/woodland-webfont.woff2') format('woff2'),
+         url('fonts/woodland-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'short_stackregular';
+    src: url('fonts/shortstack-webfont.woff2') format('woff2'),
+         url('fonts/shortstack-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
 }
