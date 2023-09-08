@@ -29,9 +29,8 @@ def after_request(response):
 
 
 @app.route("/")
-#@login_required
 def index():
-    
+    # Simple GET page, with content displayed conditionally of session
     return render_template("/index.html")
 
 
@@ -84,6 +83,7 @@ def logout():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+
     """Register user"""
 
     # User reached route via POST (as by submitting a form via POST)
@@ -120,3 +120,24 @@ def register():
     # User reached route via GET (as by clicking a link or via redirect)
     else:
         return render_template("register.html")
+    
+
+@app.route("/generate", methods=["GET", "POST"])
+@login_required
+def generate():
+    
+    if request.method == "POST":
+
+        
+        # Can do without additional app?
+        return render_template("/output.html")
+
+    # User reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("/generate.html")
+
+
+@app.route("/faq")
+def faq():
+    # Simple GET page
+    return render_template("/faq.html")

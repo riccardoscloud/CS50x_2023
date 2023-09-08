@@ -37,6 +37,17 @@ body {
     text-align: left;
 }
 
+.btn {
+    background-color: #459f09;
+    border: none;
+    color: #fff;
+}
+
+.btn:hover {
+    background-color: #2d6806;
+    transition: color 2s ease-in-out, background-color 0.15s ease-in-out;
+}
+
 .container {
     margin-left: auto;
     margin-right: auto;

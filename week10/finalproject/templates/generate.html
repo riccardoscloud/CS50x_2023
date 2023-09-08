@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Travel plan generator
+{% endblock %}
+
+{% block main %}
+<div class="header">
+    <h1>Tell Cicero about your trip</h1>
+</div>
+<div class="container">
+    <form action="/generate" method="POST">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Destination(s)</span>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="destination" name="destination" placeholder="One or more..." type="text">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">Start date</span>
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="start_date" name="start_date" placeholder="Start date" type="date" value="2023-09-01" min="2023-09-01" max="2025-12-31">
+            <span class="input-group-text" id="basic-addon2">End date</span>
+            <input autocomplete="off" class="form-control mx-auto w-auto" id="end_date" name="end_date" placeholder="End date" type="date" value="2025-12-31" min="2023-09-01" max="2025-12-31">
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
+
+{% endblock %}
