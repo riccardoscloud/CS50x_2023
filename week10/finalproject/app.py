@@ -128,13 +128,28 @@ def generate():
     
     if request.method == "POST":
 
-        
+        # Extract variables
+        destination = request.form.get("destination")
+        start_date = request.form.get("start_date")
+        end_date = request.form.get("end_date")
+        interests = request.form.getlist("interests")
+        interests_list = ""
+        for i in interests:
+            interests_list += i + ", "
+        interests_list = interests_list.rstrip(", ")
+
+        # Prompt generation
+        PROMPT = f"Destinations are: {destination},\n arrival is: {start_date},\n departure is: {end_date},\n interests are: {interests_list}"
+
         # Can do without additional app?
-        return render_template("/output.html")
+        return render_template("/output.html", prompt=PROMPT)
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
-        return render_template("/generate.html")
+
+        INTERESTS = ["History, Archaeology and Culture", "Outdoor and Nature", "Food and Dining", "Shopping", "Entertainment and Nightlife", "Sports and Adventure", "Religious and Spiritual Interests", "Family-Friendly Activities", "Education and Learning", "Wellness and Relaxation", "Art and Creativity"]
+
+        return render_template("/generate.html", interests=INTERESTS)
 
 
 @app.route("/faq")

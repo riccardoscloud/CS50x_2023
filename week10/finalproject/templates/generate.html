@@ -11,15 +11,30 @@
 <div class="container">
     <form action="/generate" method="POST">
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">Destination(s)</span>
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="destination" name="destination" placeholder="One or more..." type="text">
+            <span class="input-group-text vw-100">Your destination(s)</span>
+            <input autocomplete="off" autofocus class="form-control vw-100" id="destination" name="destination" placeholder="One or more..." type="text">
+        </div>
+        <div class="input-group mb-3 w-auto">
+            <span class="w-50">
+                <span class="input-group-text">Arrival</span>
+                <input autocomplete="off" class="form-control mx-auto" id="start_date" name="start_date" placeholder="Start date" type="date" value="2023-09-01" min="2023-09-01" max="2025-12-31">
+            </span>
+            <span class="w-50">
+                <span class="input-group-text" id="basic-addon2">Departure</span>
+                <input autocomplete="off" class="form-control mx-auto" id="end_date" name="end_date" placeholder="End date" type="date" value="2025-12-31" min="2023-09-01" max="2025-12-31">
+            </span>
         </div>
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon2">Start date</span>
-            <input autocomplete="off" class="form-control mx-auto w-auto" id="start_date" name="start_date" placeholder="Start date" type="date" value="2023-09-01" min="2023-09-01" max="2025-12-31">
-            <span class="input-group-text" id="basic-addon2">End date</span>
-            <input autocomplete="off" class="form-control mx-auto w-auto" id="end_date" name="end_date" placeholder="End date" type="date" value="2025-12-31" min="2023-09-01" max="2025-12-31">
-        </div>
+            <span class="input-group-text vw-100">Your interests</span>
+            <div class="form-control vw-100">
+                {% for interest in interests %}
+                <span class="text-nowrap">
+                    <input class="form-check-input ms-4 me-1" name="interests" type="checkbox" value="{{ interest }}" aria-label="Checkbox for {{ interest}}" > {{ interest }}
+                </span>
+                {% endfor %}
+            </div>
+          </div>
+        <br>
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>
