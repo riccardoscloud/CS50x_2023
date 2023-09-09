@@ -165,10 +165,27 @@ def generate():
 
 
         # Prompt generation
-        PROMPT = f"Destinations are: {destination},\n arrival is: {start_date},\n departure is: {end_date},\n interests are: {interests_list}"
+        PROMPT = f"Destinations are: {destination},\n arrival is: {start_date},\n \
+                    departure is: {end_date},\n interests are: {interests_list}"
+        
+        PROMPT_NEW = f"You are Cicero, an experienced travel guide who has visited the whole world.\
+                        Please provide me with personalized advice for my next holiday to {destination}.\
+                        Don't forget to keep a professional, but friendly tone.\
+                        I will be there between {start_date} and {end_date}.\
+                        My interests are: {interests}.\
+                        The advice should be structured as follows:\
+                        1. A first paragraph with general advice regarding {destination}, must-view places and hidden gems.\
+                        2. One paragraph for each of the interests I've expressed, with each destination on a seperate bullet point, for example:\
+                        Shopping, brief introduction about shopping in {destination}.\
+                        - relevant shopping place #1, description;\
+                        - relevant shopping place #2, description;\
+                        - etc..\
+                        3. A final paragraph with a proposed schedule for my trip, which must be relevant to my interests.\
+                        All of the above should also be relevant to the moment of the year I'm visiting.\
+                        For example you would suggest attending the cherry trees blossom if I were to go to Tokio at the end of March."
 
         # Can do without additional app?
-        return render_template("/output.html", prompt=PROMPT)
+        return render_template("/output.html", prompt=PROMPT_NEW)
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
