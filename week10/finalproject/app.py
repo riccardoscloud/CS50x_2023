@@ -126,6 +126,8 @@ def register():
 @login_required
 def generate():
     
+    INTERESTS = ["History, Culture and Arts", "Outdoor and Nature", "Food and Dining", "Shopping", "Entertainment and Nightlife", "Sports and Adventure", "Religious and Spiritual Interests", "Family-Friendly Activities", "Wellness and Relaxation"]
+    
     if request.method == "POST":
 
         # Extract variables
@@ -133,10 +135,34 @@ def generate():
         start_date = request.form.get("start_date")
         end_date = request.form.get("end_date")
         interests = request.form.getlist("interests")
+        
+        # Input validation
+        if not interests:
+            return apology("you must select at least one interest", 400)
+        
+        # Extract variables
         interests_list = ""
         for i in interests:
+            
+            # Input validation
+            if i not in INTERESTS:
+                return apology("do not mess with the code please", 400)
+            
+            # Extract variables
             interests_list += i + ", "
         interests_list = interests_list.rstrip(", ")
+
+        # Input validation
+        if not destination:
+            return apology("you must input a destination", 400)
+        
+        if not start_date or not end_date:
+            return apology("you must input arrival and departure dates", 400)
+        
+        if start_date >= end_date:
+            return apology("your departure date must be after the arrival date", 400)
+        
+
 
         # Prompt generation
         PROMPT = f"Destinations are: {destination},\n arrival is: {start_date},\n departure is: {end_date},\n interests are: {interests_list}"
@@ -146,8 +172,6 @@ def generate():
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
-
-        INTERESTS = ["History, Archaeology and Culture", "Outdoor and Nature", "Food and Dining", "Shopping", "Entertainment and Nightlife", "Sports and Adventure", "Religious and Spiritual Interests", "Family-Friendly Activities", "Education and Learning", "Wellness and Relaxation", "Art and Creativity"]
 
         return render_template("/generate.html", interests=INTERESTS)
 

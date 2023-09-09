@@ -16,6 +16,10 @@
 
         <link href="/static/styles.css" rel="stylesheet">
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@600&display=swap" rel="stylesheet">
+
         <title>Cicero - {% block title %}{% endblock %}</title>
 
     </head>
@@ -24,7 +28,7 @@
 
         <nav class="bg-light border navbar navbar-expand-md navbar-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/"><span class="green">CICERO</span></a>
+                <a href="/"><img src="/static/cicero_head.png" width="50" height="50"></a><a class="navbar-brand mt-2" href="/"><span class="green";>&nbsp;CICERO</span></a>
                 <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
