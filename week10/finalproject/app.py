@@ -1,4 +1,5 @@
 import os
+import openai
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -6,6 +7,9 @@ from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from helpers import apology, login_required, password_check
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.Model.list()
 
 # Configure application
 app = Flask(__name__)
@@ -168,9 +172,7 @@ def generate():
         PROMPT = f"Destinations are: {destination},\n arrival is: {start_date},\n \
                     departure is: {end_date},\n interests are: {interests_list}"
         
-        PROMPT_NEW = f"You are Cicero, an experienced travel guide who has visited the whole world.\
-                        Please provide me with personalized advice for my next holiday to {destination}.\
-                        Don't forget to keep a professional, but friendly tone.\
+        PROMPT_NEW = f"Please provide me with personalized advice for my next holiday to {destination}.\
                         I will be there between {start_date} and {end_date}.\
                         My interests are: {interests}.\
                         The advice should be structured as follows:\
@@ -184,8 +186,18 @@ def generate():
                         All of the above should also be relevant to the moment of the year I'm visiting.\
                         For example you would suggest attending the cherry trees blossom if I were to go to Tokio at the end of March."
 
+        completion = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are Cicero, an experienced travel guide who has visited the whole world. Use a professional, but friendly tone."},
+                {"role": "user", "content": f"{PROMPT_NEW}"}
+            ]
+        )
+
+        OUTPUT = completion.choices[0].message
+
         # Can do without additional app?
-        return render_template("/output.html", prompt=PROMPT_NEW)
+        return render_template("/output.html", output=OUTPUT)
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
