@@ -194,8 +194,9 @@ def generate():
             ]
         )
 
-        OUTPUT = completion.choices[0].message
-
+        bad_output = completion.choices[0].message.content
+        OUTPUT = bad_output.replace("\n", '<br>')
+        
         # Can do without additional app?
         return render_template("/output.html", output=OUTPUT)
 
