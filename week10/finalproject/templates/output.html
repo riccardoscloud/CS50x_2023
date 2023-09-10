@@ -6,10 +6,13 @@
 
 {% block main %}
 <div class="header">
-    <h1>Output</h1>
+    <h1>Your trip to {{ your_destination }}</h1>
 </div>
 <div class="container">
         <p>{{ output | safe }}</p>
+        <div>
+            <img src="/static/cicero_white.png" width="250" height="250">
+        </div>
         <br><br><br>   
 </div>
 

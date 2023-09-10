@@ -8,6 +8,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from helpers import apology, login_required, password_check
 
+# Setup OpenAI env
 openai.api_key = os.getenv("OPENAI_API_KEY")
 openai.Model.list()
 
@@ -130,17 +131,30 @@ def register():
 @login_required
 def generate():
     
+    # Set lists for input page
     INTERESTS = ["History, Culture and Arts", "Outdoor and Nature", "Food and Dining", "Shopping", "Entertainment and Nightlife", "Sports and Adventure", "Religious and Spiritual Interests", "Family-Friendly Activities", "Wellness and Relaxation"]
-    
+    MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    DURATION = ["1 week", "2 weeks", "3 weeks", "4 weeks"]
+
+    # If POST
     if request.method == "POST":
 
         # Extract variables
         destination = request.form.get("destination")
-        start_date = request.form.get("start_date")
-        end_date = request.form.get("end_date")
+        month = request.form.get("month")
+        duration = request.form.get("duration")
         interests = request.form.getlist("interests")
         
         # Input validation
+        if not destination:
+            return apology("you must input a destination", 400)
+        
+        if month not in MONTHS:
+                return apology("do not mess with the code please", 400)
+        
+        if duration not in DURATION:
+                return apology("do not mess with the code please", 400)
+        
         if not interests:
             return apology("you must select at least one interest", 400)
         
@@ -152,58 +166,44 @@ def generate():
             if i not in INTERESTS:
                 return apology("do not mess with the code please", 400)
             
-            # Extract variables
             interests_list += i + ", "
         interests_list = interests_list.rstrip(", ")
 
-        # Input validation
-        if not destination:
-            return apology("you must input a destination", 400)
-        
-        if not start_date or not end_date:
-            return apology("you must input arrival and departure dates", 400)
-        
-        if start_date >= end_date:
-            return apology("your departure date must be after the arrival date", 400)
-        
 
+        # Prompt generation        
+        PROMPT = f"Please provide me with personalized advice for my next holiday to {destination}.\
+            I will be there in {month} for {duration}.\
+            My interests are: {interests}.\
+            The advice should be structured as follows:\
+            1. A first paragraph with general advice regarding {destination}, must-view places and hidden gems.\
+            2. One paragraph for each of the interests I've expressed, with each destination on a seperate bullet point, for example:\
+            Shopping, brief introduction about shopping in {destination}.\
+            - relevant shopping place #1, description;\
+            - relevant shopping place #2, description;\
+            - etc..\
+            3. A final paragraph with a proposed schedule for my trip, which must be relevant to my interests.\
+            All of the above should also be relevant to the moment of the year I'm visiting.\
+            For example you would suggest attending the cherry trees blossom if I were to go to Tokio at the end of March."
 
-        # Prompt generation
-        PROMPT = f"Destinations are: {destination},\n arrival is: {start_date},\n \
-                    departure is: {end_date},\n interests are: {interests_list}"
-        
-        PROMPT_NEW = f"Please provide me with personalized advice for my next holiday to {destination}.\
-                        I will be there between {start_date} and {end_date}.\
-                        My interests are: {interests}.\
-                        The advice should be structured as follows:\
-                        1. A first paragraph with general advice regarding {destination}, must-view places and hidden gems.\
-                        2. One paragraph for each of the interests I've expressed, with each destination on a seperate bullet point, for example:\
-                        Shopping, brief introduction about shopping in {destination}.\
-                        - relevant shopping place #1, description;\
-                        - relevant shopping place #2, description;\
-                        - etc..\
-                        3. A final paragraph with a proposed schedule for my trip, which must be relevant to my interests.\
-                        All of the above should also be relevant to the moment of the year I'm visiting.\
-                        For example you would suggest attending the cherry trees blossom if I were to go to Tokio at the end of March."
-
+        # Query ChatGPT API        
         completion = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are Cicero, an experienced travel guide who has visited the whole world. Use a professional, but friendly tone."},
-                {"role": "user", "content": f"{PROMPT_NEW}"}
+                {"role": "user", "content": f"{PROMPT}"}
             ]
         )
 
+        # Cleanup output
         bad_output = completion.choices[0].message.content
         OUTPUT = bad_output.replace("\n", '<br>')
         
-        # Can do without additional app?
-        return render_template("/output.html", output=OUTPUT)
+        return render_template("/output.html", your_destination=destination, output=OUTPUT)
 
     # User reached route via GET (as by clicking a link or via redirect)
     else:
 
-        return render_template("/generate.html", interests=INTERESTS)
+        return render_template("/generate.html", interests=INTERESTS, months=MONTHS, duration=DURATION)
 
 
 @app.route("/faq")

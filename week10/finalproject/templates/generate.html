@@ -16,12 +16,20 @@
         </div>
         <div class="input-group mb-3 w-auto">
             <span class="w-50">
-                <span class="input-group-text">Arrival</span>
-                <input autocomplete="off" class="form-control mx-auto" id="start_date" name="start_date" placeholder="Start date" type="date" value="2023-09-01" min="2023-09-01" max="2025-12-31">
+                <span class="input-group-text">Month</span>
+                <select class="form-select" aria-label="Month" id="month" name="month">
+                    {% for month in months %}
+                        <option value="{{ month }}">{{ month }}</option>
+                    {% endfor %}
+                </select>
             </span>
             <span class="w-50">
-                <span class="input-group-text" id="basic-addon2">Departure</span>
-                <input autocomplete="off" class="form-control mx-auto" id="end_date" name="end_date" placeholder="End date" type="date" value="2023-09-30" min="2023-09-02" max="2025-12-31">
+                <span class="input-group-text">Duration</span>
+                <select class="form-select" aria-label="Duration" id="duration" name="duration">
+                    {% for weeks in duration %}
+                        <option value="{{ weeks }}">{{ weeks }}</option>
+                    {% endfor %}
+                </select>
             </span>
         </div>
         <div class="input-group mb-3">
